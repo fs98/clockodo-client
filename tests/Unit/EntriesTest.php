@@ -1,6 +1,5 @@
 <?php
 
-use Fs98\ClockodoClient\Absences\Absences;
 use Fs98\ClockodoClient\Entries\Entries;
 use Fs98\ClockodoClient\Services\ClockodoApiService;
 use Illuminate\Http\Client\Request;
@@ -17,8 +16,8 @@ $clockodoApiUrl = 'https://my.clockodo.com/api/';
 
 it('sends a GET request to get entries for a specific time range with optional parameters', function () use ($clockodoHeaders, $clockodoApiUrl) {
     // Arrange
-    $mockTimeSince = "2021-06-30T12:34:56Z";
-    $mockTimeUntil = "2021-06-30T12:34:56Z";
+    $mockTimeSince = '2021-06-30T12:34:56Z';
+    $mockTimeUntil = '2021-06-30T12:34:56Z';
     $mockOptionalParameters = ['filter[users_id]' => 124354];
 
     Http::fake([
@@ -39,7 +38,7 @@ it('sends a GET request to get entries for a specific time range with optional p
             'time_until' => $mockTimeUntil,
             ...$mockOptionalParameters,
         ];
-        $mockRequestUrl = $clockodoApiUrl . 'v2/entries?' . http_build_query($mockData);
+        $mockRequestUrl = $clockodoApiUrl.'v2/entries?'.http_build_query($mockData);
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'GET' &&
@@ -64,7 +63,7 @@ it('sends a GET request to get a selected entry by id', function () use ($clocko
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockEntryId) {
-        $mockRequestUrl = $clockodoApiUrl . 'v2/entries/' . $mockEntryId;
+        $mockRequestUrl = $clockodoApiUrl.'v2/entries/'.$mockEntryId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'GET' &&
@@ -77,7 +76,7 @@ it('sends a POST request to create a new entry', function () use ($clockodoHeade
     $mockCustomersId = 123455;
     $mockServicesId = 123455;
     $mockBillable = 0;
-    $mockTimeSince = "2021-06-30T12:34:56Z";
+    $mockTimeSince = '2021-06-30T12:34:56Z';
     $mockTimeUntil = null;
     $mockOptionalParameters = ['text' => '...'];
 
@@ -102,7 +101,7 @@ it('sends a POST request to create a new entry', function () use ($clockodoHeade
             'time_until' => $mockTimeUntil,
             ...$mockOptionalParameters,
         ];
-        $mockRequestUrl = $clockodoApiUrl . 'v2/entries';
+        $mockRequestUrl = $clockodoApiUrl.'v2/entries';
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'POST' &&
@@ -129,7 +128,7 @@ it('sends a PUT request to edit existing entry by id', function () use ($clockod
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockEntryId, $mockOptionalParameters) {
-        $mockRequestUrl = $clockodoApiUrl . 'v2/entries/' . $mockEntryId;
+        $mockRequestUrl = $clockodoApiUrl.'v2/entries/'.$mockEntryId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'PUT' &&
@@ -155,7 +154,7 @@ it('sends a DELETE request to delete entry by id', function () use ($clockodoHea
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockEntryId) {
-        $mockRequestUrl = $clockodoApiUrl . 'v2/entries/' . $mockEntryId;
+        $mockRequestUrl = $clockodoApiUrl.'v2/entries/'.$mockEntryId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'DELETE' &&

@@ -3,7 +3,6 @@
 namespace Fs98\ClockodoClient\Clocks;
 
 use Fs98\ClockodoClient\Services\ClockodoApiService;
-use Illuminate\Support\Facades\Http;
 
 class Clocks
 {
@@ -59,6 +58,6 @@ class Clocks
             'users_id' => $usersId,
         ];
 
-        return $this->clockodoApiService->performDeleteRequest('v2/clock/' . $clockId, $data);
+        return $this->clockodoApiService->performDeleteRequest('v2/clock/'.$clockId, $data);
     }
 }

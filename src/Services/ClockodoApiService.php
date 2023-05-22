@@ -26,7 +26,7 @@ class ClockodoApiService implements ClockodoApiInterface
 
     public function getApiUrl(string $endpoint): string
     {
-        return rtrim($this->clockodoApiUrl, '/') . '/' . ltrim($endpoint, '/');
+        return rtrim($this->clockodoApiUrl, '/').'/'.ltrim($endpoint, '/');
     }
 
     public function performRequest(string $method, string $endpoint, array $data = []): array

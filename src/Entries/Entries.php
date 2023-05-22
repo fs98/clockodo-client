@@ -16,9 +16,9 @@ class Entries
     /**
      * List entries.
      *
-     * @param string $timeSince In format ISO 8601 UTC, e.g. "2021-06-30T12:34:56Z".
-     * @param string $timeUntil In format ISO 8601 UTC, e.g. "2021-06-30T12:34:56Z".
-     * @param array  $optionalParameters Additional optional parameters:
+     * @param  string  $timeSince In format ISO 8601 UTC, e.g. "2021-06-30T12:34:56Z".
+     * @param  string  $timeUntil In format ISO 8601 UTC, e.g. "2021-06-30T12:34:56Z".
+     * @param  array  $optionalParameters Additional optional parameters:
      *        - filter[users_id] (integer|null) ID of the corresponding coworker.
      *        - filter[customers_id] (integer|null) ID of the corresponding customer.
      *        - filter[projects_id] (integer|null) ID of the corresponding project.
@@ -37,7 +37,7 @@ class Entries
         $data = [
             'time_since' => $timeSince,
             'time_until' => $timeUntil,
-            ...$optionalParameters
+            ...$optionalParameters,
         ];
 
         return $this->clockodoApiService->performGetRequest('v2/entries', $data);
@@ -50,25 +50,24 @@ class Entries
      */
     public function getOne(int $entryId): array
     {
-        return $this->clockodoApiService->performGetRequest('v2/entries/' . $entryId);
+        return $this->clockodoApiService->performGetRequest('v2/entries/'.$entryId);
     }
 
     /**
      * Add entry
      *
-     * @param  int $customersId ID of the corresponding customer.
-     * @param  int $servicesId ID of the corresponding service.
-     * @param  int $billable Is the entry billable?
+     * @param  int  $customersId ID of the corresponding customer.
+     * @param  int  $servicesId ID of the corresponding service.
+     * @param  int  $billable Is the entry billable?
      *        0: not billable, 1: billable, 2: already billed
-     * @param  string $time_since Starting time in format ISO 8601 UTC, e.g. "2021-06-30T12:34:56Z".
-     * @param  string|null $time_until End time, NULL if entry is running.
-     * @param  array $optionalParameters Additional optional parameters:
+     * @param  string  $time_since Starting time in format ISO 8601 UTC, e.g. "2021-06-30T12:34:56Z".
+     * @param  string|null  $time_until End time, NULL if entry is running.
+     * @param  array  $optionalParameters Additional optional parameters:
      *        - users_id: (integer|null) ID of the corresponding co-worker.
      *        - duration (integer|null) Duration of the entry in seconds.
      *        - hourly_rate (float) Hourly rate.
      *        - projects_id (boolean) ID of the corresponding project.
      *        - text (string|null) Description text.
-     * 
      */
     public function create(int $customersId, int $servicesId, int $billable, string $timeSince, string $timeUntil = null, array $optionalParameters = []): array
     {
@@ -78,7 +77,7 @@ class Entries
             'billable' => $billable,
             'time_since' => $timeSince,
             'time_until' => $timeUntil,
-            ...$optionalParameters
+            ...$optionalParameters,
         ];
 
         return $this->clockodoApiService->performPostRequest('v2/entries', $data);
@@ -92,7 +91,7 @@ class Entries
      *        - customers_id (integer) ID of the corresponding customer.
      *        - projects_id (integer|null) ID of the corresponding project.
      *        - services_id (integer) ID of the corresponding service.
-     *        - lumpsum_services_id (integer) ID of the corresponding lumpsum service. 
+     *        - lumpsum_services_id (integer) ID of the corresponding lumpsum service.
      *        - users_id (integer) ID of the corresponding co-worker.
      *        - billable (integer) Is the entry billable?
      *          0: not billable, 1: billable, 2: already billed
@@ -106,7 +105,7 @@ class Entries
      */
     public function edit(int $id, array $optionalParameters = []): array
     {
-        return $this->clockodoApiService->performPutRequest('v2/entries/' . $id, $optionalParameters);
+        return $this->clockodoApiService->performPutRequest('v2/entries/'.$id, $optionalParameters);
     }
 
     /**
@@ -116,6 +115,6 @@ class Entries
      */
     public function delete(int $id): array
     {
-        return $this->clockodoApiService->performDeleteRequest('v2/entries/' . $id);
+        return $this->clockodoApiService->performDeleteRequest('v2/entries/'.$id);
     }
 }
